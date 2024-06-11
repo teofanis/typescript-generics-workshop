@@ -1,9 +1,16 @@
 import { expect, it, describe } from "vitest";
 import { Equal, Expect } from "../helpers/type-utils";
 
-export const getHomePageFeatureFlags = (
-  config: unknown,
-  override: (flags: unknown) => unknown
+type BaseConfig<T> = {
+  rawConfig: {
+    featureFlags: {
+      homePage: T
+    }
+  }
+}
+export const getHomePageFeatureFlags = <T>(
+  config: BaseConfig<T>,
+  override: (flags: T) => T
 ) => {
   return override(config.rawConfig.featureFlags.homePage);
 };
