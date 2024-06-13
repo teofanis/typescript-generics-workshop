@@ -1,19 +1,47 @@
 import { expect, it } from "vitest";
 import { Equal, Expect } from "../helpers/type-utils";
 
-const makeSafe =
-  (func: unknown) =>
+// const makeSafe =
+// <TParams extends any[], TReturn>(func: (...args: TParams) => TReturn) =>
+//   (
+//     ...args: TParams
+//   ):
+//     | {
+//         type: "success";
+//         result: TReturn
+//       }
+//     | {
+//         type: "failure";
+//         error: Error;
+//       } => {
+//     try {
+//       const result = func(...args);
+
+//       return {
+//         type: "success",
+//         result,
+//       };
+//     } catch (e) {
+//       return {
+//         type: "failure",
+//         error: e as Error,
+//       };
+//     }
+//   };
+
+
+const makeSafe = <TFunc extends (...args: any[]) => any>(func: TFunc) =>
   (
-    ...args: unknown
+    ...args: Parameters<TFunc>
   ):
     | {
-        type: "success";
-        result: unknown;
-      }
+      type: "success";
+      result: ReturnType<TFunc>
+    }
     | {
-        type: "failure";
-        error: Error;
-      } => {
+      type: "failure";
+      error: Error;
+    } => {
     try {
       const result = func(...args);
 
@@ -44,13 +72,13 @@ it("Should return the result with a { type: 'success' } on a successful call", (
       Equal<
         typeof result,
         | {
-            type: "success";
-            result: number;
-          }
+          type: "success";
+          result: number;
+        }
         | {
-            type: "failure";
-            error: Error;
-          }
+          type: "failure";
+          error: Error;
+        }
       >
     >,
   ];
@@ -76,13 +104,13 @@ it("Should return the error on a thrown call", () => {
       Equal<
         typeof result,
         | {
-            type: "success";
-            result: string;
-          }
+          type: "success";
+          result: string;
+        }
         | {
-            type: "failure";
-            error: Error;
-          }
+          type: "failure";
+          error: Error;
+        }
       >
     >,
   ];
