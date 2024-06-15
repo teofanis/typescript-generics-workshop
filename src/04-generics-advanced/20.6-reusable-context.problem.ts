@@ -1,3 +1,4 @@
+import { useStyled } from './20.6-reusable-context.solution';
 import { CSSProperties } from "react";
 
 /**
@@ -12,11 +13,19 @@ import { CSSProperties } from "react";
  *
  * const useStyled = makeUseStyled<MyTheme>();
  */
-const useStyled = <TTheme = {}>(func: (theme: TTheme) => CSSProperties) => {
-  // Imagine that this function hooks into a global theme
-  // and returns the CSSProperties
-  return {} as CSSProperties;
+// const useStyled = <TTheme extends {}>(func: (theme: TTheme) => CSSProperties) => {
+//   // Imagine that this function hooks into a global theme
+//   // and returns the CSSProperties
+//   return {} as CSSProperties;
+// };
+
+const makeUseStyled =  <T>() => {
+  return (func: (theme: T) => CSSProperties) => {
+    return {} as CSSProperties
+  }
 };
+
+const useStyled = makeUseStyled<MyTheme>();
 
 interface MyTheme {
   color: {
@@ -27,11 +36,11 @@ interface MyTheme {
   };
 }
 
-const buttonStyle = useStyled<MyTheme>((theme) => ({
+const buttonStyle = useStyled((theme) => ({
   color: theme.color.primary,
   fontSize: theme.fontSize.small,
 }));
 
-const divStyle = useStyled<MyTheme>((theme) => ({
+const divStyle = useStyled((theme) => ({
   backgroundColor: theme.color.primary,
 }));
