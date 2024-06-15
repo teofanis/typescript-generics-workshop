@@ -14,6 +14,6 @@
     "skipLibCheck": true
   },
   "include": [
-    "/Users/teofanispapadopulos/dev/total-typescript/typescript-generics-workshop/src/04-generics-advanced/19-generic-interfaces-with-functions.problem.ts"
+    "/Users/teofanispapadopulos/dev/total-typescript/typescript-generics-workshop/src/04-generics-advanced/20-spotting-useless-generics.problem.ts"
   ]
 }
