@@ -14,6 +14,6 @@
     "skipLibCheck": true
   },
   "include": [
-    "/Users/teofanispapadopulos/dev/total-typescript/typescript-generics-workshop/src/05-function-overloads/24-function-overloads-vs-union-types.problem.ts"
+    "/Users/teofanispapadopulos/dev/total-typescript/typescript-generics-workshop/src/05-function-overloads/25-generics-in-function-overloads.problem.ts"
   ]
 }
