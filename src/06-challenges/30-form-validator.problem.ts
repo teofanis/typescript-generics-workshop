@@ -1,9 +1,10 @@
 import { expect, it } from "vitest";
 import { Equal, Expect } from "../helpers/type-utils";
 
-const makeFormValidatorFactory = (validators: unknown) => (config: unknown) => {
-  return (values: unknown) => {
-    const errors = {} as any;
+
+const makeFormValidatorFactory = <TRule extends Record<string, (value: string) => string|void>>(validators: TRule) => <TField extends string>(config: Record<TField, Array<keyof TRule>>) => {
+  return (values: Record<TField, string>) => {
+    const errors = {} as Record<TField, string | undefined>;
 
     for (const key in config) {
       for (const validator of config[key]) {
@@ -18,7 +19,24 @@ const makeFormValidatorFactory = (validators: unknown) => (config: unknown) => {
     return errors;
   };
 };
+// const makeFormValidatorFactory = <TValidatorKeys extends string>(validators: Record<TValidatorKeys, (value:string) => string | void>
+// ) => <TField extends string>(config: Record<TField, Array<TValidatorKeys>>) => {
+//   return (values: Record<TField, string>) => {
+//     const errors = {} as Record<TField, string | undefined>;
 
+//     for (const key in config) {
+//       for (const validator of config[key]) {
+//         const error = validators[validator](values[key]);
+//         if (error) {
+//           errors[key] = error;
+//           break;
+//         }
+//       }
+//     }
+
+//     return errors;
+//   };
+// };
 const createFormValidator = makeFormValidatorFactory({
   required: (value) => {
     if (value === "") {
@@ -54,7 +72,7 @@ it("Should properly validate a user", () => {
     username: "Minimum length is 5",
     email: "Invalid email",
   });
-
+  
   type test = Expect<
     Equal<
       typeof errors,
