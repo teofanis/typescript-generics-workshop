@@ -14,6 +14,6 @@
     "skipLibCheck": true
   },
   "include": [
-    "/Users/teofanispapadopulos/dev/total-typescript/typescript-generics-workshop/src/06-challenges/30-form-validator.problem.ts"
+    "/Users/teofanispapadopulos/dev/total-typescript/typescript-generics-workshop/src/06-challenges/32-data-fetcher-with-warning.problem.ts"
   ]
 }
