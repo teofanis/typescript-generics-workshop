@@ -14,6 +14,6 @@
     "skipLibCheck": true
   },
   "include": [
-    "/Users/teofanispapadopulos/dev/total-typescript/typescript-generics-workshop/src/06-challenges/33-compose.problem.ts"
+    "/Users/teofanispapadopulos/dev/total-typescript/typescript-generics-workshop/src/06-challenges/34-internationalization.problem.ts"
   ]
 }

@@ -6,7 +6,14 @@ type GetParamKeys<TTranslation extends string> = TTranslation extends ""
   ? [Param, ...GetParamKeys<Tail>]
   : [];
 
-const translate = (translations: unknown, key: unknown, ...args: unknown[]) => {
+const translate = <
+TObject extends Record<string, string>, 
+TKey extends string,
+TParamKeys extends string [] = GetParamKeys<TObject[TKey]>
+>(
+  translations: TObject, key: TKey, ...args: TParamKeys extends [] ? [] : [
+  params: Record<TParamKeys[number], string | number>]
+) => {
   const translation = translations[key];
   const params: any = args[0] || {};
 
@@ -29,7 +36,7 @@ it("Should translate a translation without parameters", () => {
 
 it("Should translate a translation WITH parameters", () => {
   const subtitle = translate(translations, "subtitle", {
-    count: "2",
+    count: 2
   });
 
   expect(subtitle).toEqual("You have 2 unread messages.");
